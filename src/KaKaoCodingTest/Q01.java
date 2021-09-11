@@ -18,7 +18,6 @@ public class Q01 {
         for(int i=0;i<answer.length;i++){
             answer[i] = users.get(i).emailReceived;
         }
-
         return answer;
     }
     public static void reportCheck(String[] report, ArrayList<UserInfo> users){
