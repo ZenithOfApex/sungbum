@@ -13,6 +13,7 @@ public class bridge_1010_2 {
             int m = sc.nextInt();
             testCase.add(new test(n,m));
         }
+        sc.close();
 
         for(int i=0;i<testCase.size();i++){
             int left = testCase.get(i).left;
