@@ -4,8 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Q03_final {
-    public int[] solution(int[] fees, String[] records){
-        int[] answer = {};
+    public static void main(String[] args) throws Exception {
+        int[] fees = {1, 461, 1, 10};
+        String[] records = {"00:00 1234 IN"};
+        int[] ans = solution(fees, records);
+        for (int k : ans) {
+            System.out.println(k);
+        }
+
+    }
+    public static int[] solution(int[] fees, String[] records){
         ArrayList<carInfo> info = new ArrayList<>();
         //fees 입력
         parkingFee pf = new parkingFee(fees[0], fees[1], fees[2], fees[3]);
@@ -29,6 +37,7 @@ public class Q03_final {
         for (int i = 0; i < checkCar.size(); i++) {//등록된 차량 번호들에서 번호당 pay 계산
             int cnt=0;
             int totalFee=0;
+//            System.out.println("checkCar.get(i) = " + checkCar.get(i));
             ArrayList<String> timeToCalc = new ArrayList<>();
             for (int j = 0; j < info.size(); j++) {//입력된 info에서 이제 in and out 구분해서 pay 계산
                 if (checkCar.get(i).equals(info.get(j).carNum)) {
@@ -36,35 +45,50 @@ public class Q03_final {
                     timeToCalc.add(info.get(j).time);
                 }
             }
-            if (cnt % 2 == 0) {//in and out이 맞아떨어지면
-                while (timeToCalc.isEmpty()) {
+//            System.out.println("checking");
+//            for (int l = 0; l < timeToCalc.size(); l++) {
+//                System.out.println("timeToCalc = " + timeToCalc.get(l));
+//                System.out.println("timeToCalc.size() = " + timeToCalc.size());
+//            }
+            if (timeToCalc.size()% 2 == 0) {//in and out이 맞아떨어지면
+//                System.out.println("entered");
+                while (!timeToCalc.isEmpty()) {
+//                    System.out.println("even number timeToCalc while entered");
                     String time1 = timeToCalc.get(0);
                     String time2 = timeToCalc.get(1);
                     totalFee += timeToFee(time1, time2, pf);
+//                    System.out.println("totalFee = " + totalFee);
                     timeToCalc.remove(0);
                     timeToCalc.remove(1);
                 }
             }
-            else{//in and out이 맞아 떨어지지 않으면
+            else if(timeToCalc.size() %2 != 0){//in and out이 맞아 떨어지지 않으면
                 timeToCalc.add("23:59");
-                while (timeToCalc.isEmpty()) {
+//                System.out.println("entered");
+                while (!timeToCalc.isEmpty()) {
+//                    System.out.println("odd number timeToCalc while entered");
                     String time1 = timeToCalc.get(0);
                     String time2 = timeToCalc.get(1);
                     totalFee += timeToFee(time1, time2, pf);
+//                    System.out.println("totalFee = " + totalFee);
+//                    System.out.println("timeToCalc = " + timeToCalc.get(0));
                     timeToCalc.remove(0);
-                    timeToCalc.remove(1);
+                    timeToCalc.remove(0);
+//                    System.out.println("eng");
                 }
             }
             finalAnswer.add(totalFee);
         }
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = finalAnswer.get(i);
+        int[] answer = new int[finalAnswer.size()];
+        int size=0;
+        for (int temp : finalAnswer) {
+            answer[size++] = temp;
         }
 
         return answer;
     }
 
-    public int timeToFee(String smallTime, String bigTime,parkingFee pay) {//차량 적은 시간이랑 큰 시간 대입하면 가격 반환
+    public static int timeToFee(String smallTime, String bigTime,parkingFee pay) {//차량 적은 시간이랑 큰 시간 대입하면 가격 반환
         String[] time1 = smallTime.split(":");
         String[] time2 = bigTime.split(":");
 
