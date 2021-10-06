@@ -1,49 +1,56 @@
 package BaekJoon;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 public class antenna_18310 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        ArrayList<Integer> house = new ArrayList<>();
-        ArrayList<where> result = new ArrayList<>();
+        HashMap<Integer, Integer> house = new HashMap<>();
+
         for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            house.add(num);
+            int index = sc.nextInt();
+            int distance =0;
+            house.put(index, distance);
         }
-        sc.close();
 
-        Collections.sort(house);
-
-        for (int i = 0; i < house.size(); i++) {
-            int start = house.get(i);
-            int sum=0;
-            for (int j = 0; j < house.size(); j++) {
-                sum+=Math.abs(house.get(j)-start);
-            }
-            result.add(new where(start, sum));
-
+//        for (Integer key : house.keySet()) {
+//            int start = key;
+//
+//            System.out.println(house.keySet());
+//            System.out.println("key = " + key);
+//            System.out.println("house.get(key) = " + house.get(key));
+//        }
+//        for (int i = 0; i < house.keySet().size(); i++) {
+//            System.out.println(house.keySet());
+//        }
+        Iterator<Integer> keys = house.keySet().iterator();
+        while (keys.hasNext()) {
+            Integer key = keys.next();
+            System.out.println(key);
         }
-        int answer= result.get(0).distance;
-        int answerPosition=0;
-        for (int i = 0; i < result.size(); i++) {
-            if (result.get(i).distance < answer) {
-                answer = result.get(i).distance;
-                answerPosition = result.get(i).house;
-            }
-        }
-        System.out.println(answerPosition);
-    }
-}
-class where{
-    int house;
-    int distance;
 
-    public where(int house, int distance) {
-        this.house = house;
-        this.distance = distance;
+//        int answer = 0;
+//        for (int i = 0; i < n; i++) {
+//            int num = sc.nextInt();
+//            house[i] = num;
+//            answer+=num;
+//        }
+//        sc.close();
+//        Arrays.sort(house);
+//        int result=0;
+//        for (int i = 0; i < n; i++) {
+//            int start = house[i];
+//            int sum=0;
+//            for (int j = 0; j < house.length; j++) {
+//                sum += Math.abs(house[j] - start);
+//            }
+//            if (answer > sum) {
+//                answer = sum;
+//                result = start;
+//            }
+//            answer = Math.min(answer, sum);
+//        }
+//        System.out.println(result);
     }
 }

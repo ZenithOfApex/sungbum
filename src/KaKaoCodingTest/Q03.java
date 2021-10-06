@@ -9,7 +9,7 @@ public class Q03 {
         int basicFee = fees[1];//기본요금
         int addTime = fees[2];//추가시간
         int addFee = fees[3];//추가요금
-        ArrayList<carInfo> cars = new ArrayList<>();
+        ArrayList<carInformation> cars = new ArrayList<>();
         ArrayList<carIn> carIn = new ArrayList<>();
         ArrayList<carOut> carOut = new ArrayList<>();
         ArrayList<Integer> result = new ArrayList<>();
@@ -17,7 +17,7 @@ public class Q03 {
         for(int i=0;i<records.length;i++){//차량 입출고에 대한 정보 records에서 읽어오기
             String[] carRecord = records[i].split(" ");
             String[] time = carRecord[0].split(":");
-            cars.add(new carInfo(Integer.parseInt(time[0]),Integer.parseInt(time[1]), Integer.parseInt(carRecord[1]), carRecord[2]));
+            cars.add(new carInformation(Integer.parseInt(time[0]),Integer.parseInt(time[1]), Integer.parseInt(carRecord[1]), carRecord[2]));
         }
 
         for(int i=0;i<cars.size();i++){//In and out으로 차 구분하기
@@ -92,14 +92,14 @@ public class Q03 {
     }
 }
 
-class carInfo{
+class carInformation{
     int hour;
     int minute;
     int carNum;
     String status;
     int totalFee;
 
-    public carInfo(int hour, int minute, int carNum, String status) {
+    public carInformation(int hour, int minute, int carNum, String status) {
         this.hour = hour;
         this.minute = minute;
         this.carNum = carNum;

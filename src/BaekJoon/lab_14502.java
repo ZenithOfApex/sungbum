@@ -44,18 +44,15 @@ public class lab_14502 {
         System.out.println(max);
     }
 
-    // 백트래킹을 이용하여 3개의 벽 세우기
     static void setWall(int start, int depth) {
         if (depth == 3) {
-            // 맵 복사
+
             copyMap();
 
-            // 바이러스 퍼트리기
             for (Dot dot : virusList) {
                 spreadVirus(dot.x, dot.y);
             }
 
-            // 안전영역 크기 구하기
             max = Math.max(max, getSafeArea());
             return;
         }
@@ -71,8 +68,6 @@ public class lab_14502 {
             }
         }
     }
-
-    // 기존 맵을 유지하기 위해 바이러스 퍼트릴 맵 복사하기
     static void copyMap() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -81,7 +76,6 @@ public class lab_14502 {
         }
     }
 
-    // DFS 로 바이러스 퍼트리기
     static void spreadVirus(int x, int y) {
         for (int i = 0; i < 4; i++) {
             int nx = x + dx[i];
