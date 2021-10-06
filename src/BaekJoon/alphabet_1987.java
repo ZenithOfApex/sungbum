@@ -58,7 +58,6 @@ public class alphabet_1987 {
                 }
             }
         }
-        System.out.println("Problem Solving3");
     }
 
 }
