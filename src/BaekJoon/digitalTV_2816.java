@@ -15,8 +15,8 @@ public class digitalTV_2816 {
         sc.close();
         StringBuilder sb = new StringBuilder();
 
-        int targetOneIndex=0;
-        int targetTwoIndex=0;
+        int targetOneIndex = 0;
+        int targetTwoIndex = 0;
 
         for (int i = 0; i < channel.length; i++) {
             if (channel[i].equals("KBS1")) {
@@ -25,36 +25,21 @@ public class digitalTV_2816 {
                 targetTwoIndex = i;
             }
         }
-        int moveIndex =0;
+        for (int i = 0; i < targetOneIndex; i++) {
+            sb.append("1");
+        }
+        for (int i = 0; i < targetOneIndex; i++) {
+            sb.append("4");
+        }
         if (targetOneIndex > targetTwoIndex) {
-            for (int i = 0; i < targetOneIndex; i++) {
-                sb.append("1");
-            }
-            for (int i = 0; i < targetOneIndex; i++) {
-                sb.append("4");
-            }
             targetTwoIndex++;
-            for (int i = 0; i < targetTwoIndex; i++) {
-                sb.append("1");
-            }
-            for (int i = 0; i < targetTwoIndex - 1; i++) {
-                sb.append("4");
-            }
-        } else if (targetOneIndex < targetTwoIndex) {
-            for (int i = 0; i < targetOneIndex; i++) {
-                sb.append("1");
-            }
-            for (int i = 0; i < targetOneIndex; i++) {
-                sb.append("4");
-            }
-            for (int i = 0; i < targetTwoIndex; i++) {
-                sb.append("1");
-            }
-            for (int i = 0; i < targetTwoIndex-1; i++) {
-                sb.append("4");
-            }
+        }
+        for (int i = 0; i < targetTwoIndex; i++) {
+            sb.append("1");
+        }
+        for (int i = 0; i < targetTwoIndex - 1; i++) {
+            sb.append("4");
         }
         System.out.println(String.valueOf(sb));
-
     }
 }
