@@ -12,6 +12,7 @@ public class addCycle_1110 {
         int n = Integer.parseInt(st.nextToken());
         int breakNum = n;
         int cycleCnt =0;
+        br.close();
 
         while (true) {
 
