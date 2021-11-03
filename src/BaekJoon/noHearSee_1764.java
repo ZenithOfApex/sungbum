@@ -16,8 +16,6 @@ public class noHearSee_1764 {
         int m = Integer.parseInt(st.nextToken());
 
         HashSet<String> hs = new HashSet<>();
-        String[] noSee = new String[m];
-        String[] noHear = new String[n];
         ArrayList<String> result = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
