@@ -30,6 +30,7 @@ public class noHearSee_1764 {
                 result.add(temp_name);
             }
         }
+        br.close();
 
         Collections.sort(result);
         System.out.println(cnt);
