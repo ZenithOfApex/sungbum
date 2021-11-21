@@ -39,18 +39,10 @@ public class FailRatio {
             public int compare(double[] o1, double[] o2) {
                 if (o1[1] == o2[1]) {//실패율이 같은 경우에는
                     return Double.compare(o2[0], o1[0]);
-//                    return Double.compare(o1[0], o2[0]);
                 }
                 return Double.compare(o1[1],o2[1]);
             }
         });
-
-//        for (int i = 0; i < n; i++) {
-//            System.out.println(result[i][0]);
-//            System.out.println(result[i][1]);
-//            System.out.println();
-//        }
-
         for (int i = 0; i < n; i++) {
             answer[i] = (int)result[n-i-1][0];
         }
