@@ -27,7 +27,7 @@ public class MenuRenewal {
             ArrayList<String> courseList = new ArrayList<>();
             for (String order : orders) {//orders = {abcfg, ac, cde, acde}, order는 각 요소
                 char[] item = order.toCharArray();//item은 하나 하나
-                Arrays.sort(item);
+                Arrays.sort(item);//xy yx 동일 처리하기 위해 정렬 처리
                 boolean[] visited = new boolean[item.length];
 
                 combinationList = new ArrayList<>();
@@ -36,7 +36,6 @@ public class MenuRenewal {
                     courseList.add(s);
                 }
             }
-            System.out.println("courseList = " + courseList);
             int max = 0;
             for (String s : courseList) {
                 int count = Collections.frequency(courseList, s);
@@ -51,7 +50,6 @@ public class MenuRenewal {
             }
         }
         Collections.sort(answerList);
-        System.out.println("answerList = " + answerList);
         answer = answerList.toArray(new String[answerList.size()]);
 
         return answer;
