@@ -27,6 +27,7 @@ public class MenuRenewal {
             ArrayList<String> courseList = new ArrayList<>();
             for (String order : orders) {//orders = {abcfg, ac, cde, acde}, order는 각 요소
                 char[] item = order.toCharArray();//item은 하나 하나
+                Arrays.sort(item);
                 boolean[] visited = new boolean[item.length];
 
                 combinationList = new ArrayList<>();
