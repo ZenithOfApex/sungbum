@@ -29,7 +29,7 @@ public class CandidateKey2 {
 
     public static void makeSet(int index, int target, int count, HashSet<Integer> set) {
         if (count == target) {
-            if (!isUnique(set)) {
+            if (!isUnique(set)) {//유일성이 보장되지 않았다면 끝내기
                 return;
             }
             for (HashSet<Integer> key : candidateKey) {
@@ -48,16 +48,16 @@ public class CandidateKey2 {
         }
     }
 
-    public static boolean isUnique(HashSet<Integer> set) {
+    public static boolean isUnique(HashSet<Integer> set) {//유일성 체크
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < Table.length; i++) {
             String temp = "";
-            for (Integer index : set) {
+            for (Integer index : set) {//attribute 인덱스 번호로 따와서 문자열로 생성
                 temp += Table[i][index];
             }
-            if (!list.contains(temp)) {
+            if (!list.contains(temp)) {//중복되지 않게 추가
                 list.add(temp);
-            } else {
+            } else {//이미 있다면 false 반환
                 return false;
             }
         }
