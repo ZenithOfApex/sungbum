@@ -15,13 +15,11 @@ public class Tuple {
     public static Integer[] solution(String s) {
         ArrayList<Integer> answerList = new ArrayList<>();
 
-        String trimmedStr = s.substring(2, s.length() - 2);
-        trimmedStr = trimmedStr.replace("},{", "-");
-        System.out.println(trimmedStr);
-        String[] collectionList = trimmedStr.split("-");
-        for (String s1 : collectionList) {
-            System.out.println("s1 = " + s1);
-        }
+        String trimmedStr = s.substring(2, s.length() - 2);//맨 앞 뒤, 중괄호 두개씩 제거
+        trimmedStr = trimmedStr.replace("},{", "-");//그 다음 },{ -로 대체
+        String[] collectionList = trimmedStr.split("-");//대체한 - 기준으로 분리
+
+        //작은 집합 순으로 오름차순 정렬
         Arrays.sort(collectionList, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -30,17 +28,18 @@ public class Tuple {
                 } else return -1;
             }
         });
-        System.out.println();
+
+        //집합 당 , 기준으로 수 분리 및 정답에 추가
         for (String s1 : collectionList) {
             String[] tempStr = s1.split(",");
             for (String target : tempStr) {
-                if (!answerList.contains(Integer.parseInt(target))) {
+                if (!answerList.contains(Integer.parseInt(target))) {//이미 접답 리스트에 있다면 추가하지 않음
                     answerList.add(Integer.parseInt(target));
                 } else continue;
             }
-            System.out.println("s1 = " + s1);
         }
-        System.out.println(answerList);
+
+        //리스트를 배열로
         Integer[] answer = answerList.toArray(new Integer[answerList.size()]);
         return answer;
     }
