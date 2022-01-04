@@ -10,7 +10,6 @@ public class OpenChatting {
         for (String s : answer) {
             System.out.println(s);
         }
-
     }
 
     public static String[] solution(String[] record) {
