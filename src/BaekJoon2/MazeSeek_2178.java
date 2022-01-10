@@ -22,7 +22,7 @@ public class MazeSeek_2178 {
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
         x= 0;
-        y=0;
+        y= 0;
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
@@ -43,20 +43,23 @@ public class MazeSeek_2178 {
         while (!q.isEmpty()) {
             Point pt = q.poll();
             for (int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
+                int nx = pt.x + dx[i];
+                int ny = pt.y + dy[i];
+
 
                 if (inRange(nx, ny)) {
                     continue;
                 }
-                if (visited[nx][ny]) {
+                if (visited[nx][ny] || map[nx][ny] == 0) {
                     continue;
                 }
-
                 q.offer(new Point(nx, ny));
+                map[nx][ny] = map[pt.x][pt.y]+1;
                 visited[nx][ny] = true;
             }
         }
+        System.out.println(map[n-1][m-1]);
+        br.close();
     }
 
     public static boolean inRange(int x, int y) {
