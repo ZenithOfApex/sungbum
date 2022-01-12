@@ -32,34 +32,6 @@ public class ShuttleBus {
         for (int i = 0; i < n; i++) {//버스 수만큼
             busList.add(new Time(9, i*t));//버스 배차 시간표 입력
         }
-
-        for (Time wait : waitingList) {
-            onBoardList.offer(wait);
-        }
-
-        for (Time bus : busList) {
-            int people =0;
-            int curHour = 0;
-            int curMin =0;
-
-            for (Time person : onBoardList) {
-                if (person.hour <= bus.hour) {
-                    if (person.min <= bus.min) {
-                        if (people < m) {
-                            people++;
-                            Time curTime = onBoardList.poll();
-                            curHour = curTime.hour;
-                            curMin = curTime.min;
-                        } else if (people == m - 1) {
-                            StringBuilder sb = new StringBuilder();
-                            sb.append(curHour + curMin);
-                            answer = sb.toString();
-                        }
-                    }
-                }
-            }
-        }
-
         Collections.sort(waitingList, new Comparator<Time>() {//기다리는 사원들 정렬
             @Override
             public int compare(Time o1, Time o2) {
@@ -68,6 +40,43 @@ public class ShuttleBus {
                 } else return -1;
             }
         });
+
+        for (Time wait : waitingList) {
+            onBoardList.offer(wait);
+        }
+
+
+        for (Time bus : busList) {
+            int people =0;
+            int curHour = 0;
+            int curMin =0;
+
+            while(!onBoardList.isEmpty()){
+                Time person = onBoardList.poll();
+                System.out.println("person.hour = " + person.hour);
+                System.out.println("person.min = " + person.min);
+                if (person.hour <= bus.hour) {
+                    if (person.min <= bus.min) {
+                        if (people < m - 1) {//버스가 만석이 아니라면
+                            people++;
+                            curHour = person.hour;
+                            curMin = person.min;
+                        } else if (people == m - 1) {//콘이 이때 타야 함
+                            StringBuilder sb = new StringBuilder();
+                            sb.append(curHour + ":" + curMin);
+                            answer = sb.toString();
+                        } else {// 만석인 경우
+                            people = 0;
+
+                            break;
+                        }
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
 
 
 
