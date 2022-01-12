@@ -73,14 +73,15 @@ public class BeerWalking_9205 {
         int dist = Math.abs(n.x - m.x) + Math.abs(n.y - m.y);
         return dist;
     }
-}
 
-class Pos {
-    int x;
-    int y;
+    static class Pos {
+        int x;
+        int y;
 
-    public Pos(int x, int y) {
-        this.x = x;
-        this.y = y;
+        public Pos(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
+
 }
