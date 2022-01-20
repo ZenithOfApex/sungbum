@@ -73,14 +73,16 @@ public class tomato_7576 {
         }
         System.out.println(max-1);
     }
-}
-class coordinate{
-    int x;
-    int y;
 
-    public coordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public static class coordinate{
+        int x;
+        int y;
+
+        public coordinate(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
+
 }
 

@@ -75,15 +75,16 @@ public class treasure_2589 {
             return false;
         }else return true;
     }
-}
-class Node{
-    int x;
-    int y;
-    int cnt;
 
-    public Node(int x, int y, int cnt) {
-        this.x = x;
-        this.y = y;
-        this.cnt = cnt;
+    public static class Node{
+        int x;
+        int y;
+        int cnt;
+
+        public Node(int x, int y, int cnt) {
+            this.x = x;
+            this.y = y;
+            this.cnt = cnt;
+        }
     }
 }

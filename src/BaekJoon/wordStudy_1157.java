@@ -45,16 +45,17 @@ public class wordStudy_1157 {
             }
         }
     }
-}
 
-class word{
-    char alphabet;
-    int count;
+    public static class word{
+        char alphabet;
+        int count;
 
-    public word(char alphabet, int count) {
-        this.alphabet = alphabet;
-        this.count = count;
+        public word(char alphabet, int count) {
+            this.alphabet = alphabet;
+            this.count = count;
+        }
     }
+
 }
 
 

@@ -1,33 +1,45 @@
 package BaekJoon;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class dwarf_2309 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int[] arr = new int[9];
-        ArrayList<Integer> dwarf = new ArrayList<>();
-        int sum=0;
-        for(int i=0;i<9;i++){
-            dwarf.add(sc.nextInt());
-        }
-        for (int i = 0; i<dwarf.size(); i++) {
-            sum += dwarf.get(i);
-        }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int[] dwarf = new int[9];
 
-        for(int i=0;i< dwarf.size();i++){
-            for (int j = i + 1; j < dwarf.size(); j++) {
-                if (sum - dwarf.get(i) - dwarf.get(j) == 100) {
-                    dwarf.remove(i);
-                    dwarf.remove(j);
-                    Collections.sort(dwarf);
-                    for (int k = 0; k < dwarf.size(); k++) {
-                        System.out.println(dwarf.get(k));
-                    }
-                }else continue;
+        int sum=0;
+
+        for(int i=0;i<9;i++){
+            int inputNum = Integer.parseInt(br.readLine());
+            dwarf[i] = inputNum;
+            sum += inputNum;
+        }
+        int checkPoint = sum - 100;
+        Arrays.sort(dwarf);
+        for (int i = 0; i < 8; i++) {
+            boolean flag = true;
+            for (int j = i+1; j < 9; j++) {
+                if (dwarf[i] + dwarf[j] == checkPoint) {
+                    dwarf[i]=0;
+                    dwarf[j]=0;
+                    flag = false;
+                    break;
+                }
+            }
+            if (!flag) {
+                break;
             }
         }
+        Arrays.sort(dwarf);
+        for (int i : dwarf) {
+            if (i != 0) {
+            System.out.println(i);
+            }
+        }
+
+        br.close();
     }
 }
