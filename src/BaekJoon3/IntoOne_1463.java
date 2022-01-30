@@ -18,7 +18,9 @@ public class IntoOne_1463 {
         dp[2] = 1;
         dp[3] = 1;
 
-        if(n>4) setDp(n);
+        if(n>4){
+            setDp(n);
+        }
 
         System.out.println(dp[n]);
         br.close();
