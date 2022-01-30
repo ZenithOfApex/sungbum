@@ -40,7 +40,6 @@ public class Tetromino_14500 {
 
         map = new int[n][m];
         visited = new boolean[n][m];
-        int maxValue = 0;
         max =0;
 
         for (int i = 0; i < n; i++) {
@@ -48,7 +47,6 @@ public class Tetromino_14500 {
             for (int j = 0; j < m; j++) {
                 int inputNum = Integer.parseInt(st.nextToken());
                 map[i][j] = inputNum;
-                maxValue = Math.max(inputNum, maxValue);
             }
         }
 
