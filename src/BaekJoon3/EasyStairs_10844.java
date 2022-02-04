@@ -31,10 +31,10 @@ public class EasyStairs_10844 {
         for (int i = 1; i < n + 1; i++) {
             for (int j = 0; j < 10; j++) {
                 if (j - 1 >= 0) {
-                    dp[i + 1][j - 1] += dp[i][j];
+                    dp[i + 1][j - 1] = (dp[i + 1][j - 1] + dp[i][j]) % MOD;
                 }
                 if (j + 1 <= 10) {
-                    dp[i + 1][j + 1] += dp[i][j];
+                    dp[i + 1][j + 1] = (dp[i + 1][j + 1] + dp[i][j]) % MOD;
                 }
             }
         }
@@ -42,7 +42,6 @@ public class EasyStairs_10844 {
         long sum = 0;
         for (int i = 0; i < 10; i++) {
             sum += (dp[n][i]%MOD);
-//            sum += dp[n][i];
         }
 
         int answer = (int)(sum%MOD);
