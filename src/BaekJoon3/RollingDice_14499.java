@@ -4,14 +4,11 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 public class RollingDice_14499 {
-
     static int N, M, x, y, K;
-    static int INF = Integer.MAX_VALUE;
 
     static int[] dice = new int[6];
     static int[] command;
     static int[][] map;
-    static boolean[][] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -26,7 +23,6 @@ public class RollingDice_14499 {
 
         command = new int[K];
         map = new int[N][M];
-        visited = new boolean[N][M];
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine(), " ");
@@ -37,96 +33,63 @@ public class RollingDice_14499 {
 
         //주사위 올려놓기
 
-
         st = new StringTokenizer(br.readLine(), " ");
         for (int i = 0; i < K; i++) {
             int command = Integer.parseInt(st.nextToken());
-            if (solution(command) == INF) {
-                continue;
-            } else {
-                bw.write(solution(command)+"\n");
-            }
-        }
 
-
-        bw.flush();
-        bw.close();
-        br.close();
-    }
-
-    private static int solution(int command) {
-        if (command == 1) {//동쪽으로 엎어짐
-            int nx = x;
-            int ny = y+1;
-            if (inRange(nx, ny)) {//범위 체크
+            if (command == 1) {
+                if (!inRange(x, y + 1)) {
+                    continue;
+                }
                 y++;
                 int temp = dice[0];
                 dice[0] = dice[4];
                 dice[4] = dice[1];
                 dice[1] = dice[5];
                 dice[5] = temp;
-                if (map[nx][ny] != 0) {
-                    dice[0] = map[nx][ny];
-                    map[nx][ny] = 0;
-                } else {
-                    map[nx][ny] = dice[0];
+            } else if (command == 2) {
+                if (!inRange(x, y - 1)) {
+                    continue;
                 }
-            }else return INF;
-        } else if (command == 2) {//서쪽으로 엎어짐
-            int nx = x;
-            int ny = y-1;
-            if (inRange(nx,ny)) {//범위 체크
                 y--;
                 int temp = dice[0];
                 dice[0] = dice[5];
                 dice[5] = dice[1];
                 dice[1] = dice[4];
                 dice[4] = temp;
-                if (map[nx][ny] != 0) {
-                    dice[0] = map[nx][ny];
-                    map[nx][ny] = 0;
-                } else {
-                    map[nx][ny] = dice[0];
+            } else if (command == 3) {
+                if (!inRange(x - 1, y)) {
+                    continue;
                 }
-            }else return INF;
-        } else if (command == 3) {//북쪽으로 엎어짐
-            int nx = x-1;
-            int ny = y;
-            if (inRange(nx,ny)) {//범위 체크
                 x--;
                 int temp = dice[1];
                 dice[1] = dice[3];
                 dice[3] = dice[0];
                 dice[0] = dice[2];
                 dice[2] = temp;
-                if (map[nx][ny] != 0) {
-                    dice[0] = map[nx][ny];
-                    map[nx][ny] = 0;
-                } else {
-                    map[nx][ny] = dice[0];
+            } else {
+                if (!inRange(x + 1, y)) {
+                    continue;
                 }
-            }else return INF;
-        } else if (command == 4) {//남쪽으로 엎어짐
-            int nx = x+1;
-            int ny = y;
-            if (inRange(nx,ny)) {//범위 체크
                 x++;
                 int temp = dice[0];
                 dice[0] = dice[3];
                 dice[3] = dice[1];
                 dice[1] = dice[2];
                 dice[2] = temp;
-                if (map[nx][ny] != 0) {
-                    dice[0] = map[nx][ny];
-                    map[nx][ny] = 0;
-                } else {
-                    map[nx][ny] = dice[0];
-                }
-            }else return INF;
+            }
+            if (map[x][y] != 0) {
+                dice[0] = map[x][y];
+                map[x][y] = 0;
+            } else {
+                map[x][y] = dice[0];
+            }
+            bw.write(dice[1] + "\n");
         }
 
-        //반환값은 주사위 윗면
-        return dice[1];
+        bw.flush();
+        bw.close();
+        br.close();
     }
 
     private static boolean inRange(int x, int y) {
