@@ -1,19 +1,13 @@
 package BaekJoon3;
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class RobotCleaner_14503 {
-    static int N, M, answer;
+    static int N, M, answer=0;
     static int[][] map;
-    static boolean[][] visited;
-    static int[] dx = {0, 1, 0, -1};//왼후우전
-    static int[] dy = {-1, 0, 1, 0};
-    static int[] direction = {0, 1, 2, 3};//북동남서 순
-
-    static Queue<Robot> queue = new LinkedList<>();
+    static int[] dx = {-1, 0, 1, 0};//왼후우전
+    static int[] dy = {0, 1, 0, -1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,18 +16,14 @@ public class RobotCleaner_14503 {
 
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        int answer = 1;
 
         map = new int[N][M];
-        visited = new boolean[N][M];
 
         //robot 초기화 및 선언(initial state)
         st = new StringTokenizer(br.readLine(), " ");
         int robotX = Integer.parseInt(st.nextToken());
         int robotY = Integer.parseInt(st.nextToken());
         int robotDirection = Integer.parseInt(st.nextToken());
-        queue.offer(new Robot(robotX, robotY, robotDirection));
-        visited[robotX][robotY] = true;
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine(), " ");
@@ -42,11 +32,7 @@ public class RobotCleaner_14503 {
             }
         }
 
-        while (!queue.isEmpty()) {
-            Robot polled = queue.poll();
-
-            checkCleanCondition(polled.x, polled.y, polled.direction);
-        }
+        checkCleanCondition(robotX, robotY, robotDirection);
 
         bw.write(answer + "\n");
 
@@ -55,35 +41,41 @@ public class RobotCleaner_14503 {
         br.close();
     }
 
-    private static void clean(int x, int y) {
-        visited[x][y] = true;
-        answer++;
-    }
-
-    private static int changeDirection(int curDirection) {
-        return direction[(curDirection + 1) % 4];
-    }
-
-    private static void checkCleanCondition(int x, int y, int InputDirection) {
-        int dir = InputDirection;
-        for (int i = 0; i < 4; i++) {
-            int nx = x + dx[(i+InputDirection)%4];
-            int ny = y + dy[(i+InputDirection)%4];
-
-            //청소한 적이 없고 벽이 아닌 경우
-            if (!inRange(nx, ny)) {
-                continue;
-            }
-            if (!visited[nx][ny] && map[nx][ny] != 1) {
-                clean(nx, ny);
-                checkCleanCondition(nx, ny, changeDirection(InputDirection));
-//                queue.offer(new Robot(nx, ny, changeDirection(InputDirection)));
-                break;
-            }else continue;
-            dir = changeDirection(InputDirection);
+    private static void checkCleanCondition(int x, int y, int direction) {
+        if (map[x][y] == 0) {//방문 처리
+            map[x][y] = 2;
+            answer++;
         }
 
-        queue.add(new Robot(x + dx[1], y + dy[1], InputDirection));
+        boolean flag = false;
+        int inputDirection = direction;
+
+        for (int i = 0; i < 4; i++) {
+            int newDirection = (direction + 3) % 4;
+            int nx = x + dx[newDirection];
+            int ny = y + dy[newDirection];
+
+            if (inRange(nx, ny)) {
+                if (map[nx][ny] == 0 ) {
+                    checkCleanCondition(nx, ny, newDirection);
+                    flag = true;
+                    break;
+                }
+            }
+            direction = (direction + 3) % 4;
+        }
+
+        if (!flag) {
+            int newDirection = (inputDirection + 2) % 4;
+            int nx = x + dx[newDirection];
+            int ny = y + dy[newDirection];
+
+            if (inRange(nx, ny)) {
+                if (map[nx][ny] != 1) {
+                    checkCleanCondition(nx, ny, inputDirection);
+                }
+            }
+        }
         //네 방향이 모두 청소하였거나 벽인 경우
         //direction 유지하면서 한칸 뒤로 이동 -> checkCleanCondition()
 
@@ -92,18 +84,6 @@ public class RobotCleaner_14503 {
     }
 
     private static boolean inRange(int x, int y) {
-        return x >= 0 && x < N && y >=0 && y < M;
-    }
-
-    static class Robot{
-        int x;
-        int y;
-        int direction;
-
-        public Robot(int x, int y, int direction) {
-            this.x = x;
-            this.y = y;
-            this.direction = direction;
-        }
+        return x > 0 && x < N && y >0 && y < M;
     }
 }
