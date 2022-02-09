@@ -15,6 +15,7 @@ public class Emoticon_14226_Answer {
 
         S = Integer.parseInt(br.readLine());
 
+        //[화면의 이모티콘 수][클립보드의 이모티콘 수]
         visited = new boolean[2001][2001];
 
         solution();
@@ -39,20 +40,20 @@ public class Emoticon_14226_Answer {
             }
 
             if (emoticon_num > 0 && emoticon_num < 2000) {
-                if (!visited[emoticon_num][emoticon_num]) {
+                if (!visited[emoticon_num][emoticon_num]) {//복사
                     visited[emoticon_num][emoticon_num] = true;
 
                     queue.offer(new Step(emoticon_num, emoticon_num, time + 1));
                 }
 
-                if (!visited[emoticon_num - 1][clipboard_num]) {
+                if (!visited[emoticon_num - 1][clipboard_num]) {//삭제
                     visited[emoticon_num-1][clipboard_num] = true;
 
                     queue.offer(new Step(emoticon_num - 1, clipboard_num, time + 1));
                 }
             }
 
-            if (clipboard_num > 0 && emoticon_num + clipboard_num < 2000) {
+            if (clipboard_num > 0 && emoticon_num + clipboard_num < 2000) {//붙여넣기
                 if (!visited[emoticon_num + clipboard_num][clipboard_num]) {
                     visited[emoticon_num + clipboard_num][clipboard_num] = true;
 
