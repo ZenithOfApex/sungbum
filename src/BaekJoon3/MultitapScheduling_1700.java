@@ -31,18 +31,18 @@ public class MultitapScheduling_1700 {
             if (!set.contains(record[i])) {//새로 들어오는 숫자가 멀티탭에 꽂혀있지 않는 경우
                 if (N <= set.size()) {//멀티탭에 여유가 없는 경우 여유 만들어주기
                     ArrayList<Integer> window = new ArrayList<>();//똑같은 크기만큼 보자
-                    Set<Integer> check = new HashSet<>(set);//set와 window 비교하기 위함
+                    Set<Integer> check = new HashSet<>(set);//사용하지 않는 장비 찾기 위함
 
                     for (int j = i; j < K; j++) {//sliding window(N 사이즈만큼)
-                        if (set.contains(record[j]) && !window.contains(record[j])) {//set에는 수가 들어있지만 앞으로의 숫자에는 포함되어 있지않은 경우
+                        if (set.contains(record[j]) && !window.contains(record[j])) {//후에 안쓰는 장비를 찾기 위함
                             window.add(record[j]);
                             check.remove(record[j]);
                         }
                     }
 
-                    if (window.size() == N) {//window가 다 만들어지면 기존의 set에서 하나 제거해주기(여유 만들어주기)
+                    if (window.size() == N) {//앞에서의 set이 뒤에서도 다 쓰이는 경우에는 가장 늦게 추가 될 장비를 제거
                         set.remove(window.get(window.size() - 1));
-                    } else {
+                    } else {//다 봤는데 안쓰이는 장비를 찾았다 그게 check에 남아있음
                         ArrayList<Integer> temp = new ArrayList<>(check);//window가 다 만들어지지 않아도 진행은 해야되니깐 하나 뺴주기(여유 만들어주기)
                         set.remove(temp.get(0));
                     }
