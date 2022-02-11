@@ -38,6 +38,7 @@ public class ChickenDelivery_15686 {
 
         checkDistance(0,0);
         Collections.sort(chickenDistances);
+        System.out.println(chickenDistances);
 
         bw.write(chickenDistances.get(0) + "\n");
 
@@ -56,15 +57,15 @@ public class ChickenDelivery_15686 {
             int distance = 0;
             for (Pos house : houses) {
                 int temp = Integer.MAX_VALUE;
-                for (Pos pos : shopCombination) {
-                    temp = Math.min(temp, getDistance(house, pos));
+                for (Pos shop : shopCombination) {
+                    temp = Math.min(temp, getDistance(house, shop));
                 }
                 distance+=temp;
             }
             chickenDistances.add(distance);
             return;
         }
-
+        //여기서 시간초과 나는듯....
         for (int i = index; i < shops.size(); i++) {
             shops.get(i).survived = true;
             shopCombination.add(shops.get(i));
