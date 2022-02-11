@@ -9,6 +9,9 @@ public class DragonCurve_15685 {
     static int N, answer;
     static ArrayList<Dragon> dragon;
     static int[][] map = new int[101][101];//0이면 false 1이면 true
+    static int[] directions = {0, 1, 2, 3};//0:동 1:북 2:서 3:남
+    static int[] dx = {0, -1, 0, 1};
+    static int[] dy = {1, 0, -1, 0};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -55,49 +58,14 @@ public class DragonCurve_15685 {
 
     private static void solution(int x, int y, int d, int g) {
         map[x][y] = 1;
-        if (d == 0) {
-            map[x][y+1] = 1;
-            if(g==0) return;
-            rotate(0, g);
-        } else if (d == 1) {
-            map[x-1][y] = 1;
-            if(g==0) return;
-            rotate(0, g);
-        } else if (d == 2) {
-            map[x][y-1] = 1;
-            if(g==0) return;
-            rotate(0, g);
-        } else if (d == 3) {
-            map[x+1][y] = 1;
-            if(g==0) return;
-            rotate(0, g);
-        }
 
-    }
+        //이동 방향 측으로 하나 더 체크해야 길이가 1인 선분 그려짐
+        int nx = x + dx[d];
+        int ny = y + dy[d];
 
-    private static void rotate(int generation,int targetGen) {
-        if (generation == targetGen) {
-            return;
-        }
-        int[][] rotated = new int[101][101];
-        //회전
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
-                rotated[i][j] = map[99 - j][i];
-            }
-        }
-        //회전 후 붙이기
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
-                if (rotated[i][j]==1) {
-                    map[i][j] = rotated[i][j];
-//                    if (!map[i][j]) {
-//                    }
-                }
-            }
-        }
+        map[nx][ny] = 1;//여기까지 하면 선분 그리기 완료(0세대)
 
-        rotate(generation + 1, targetGen);
+
     }
 
     private static void countingSquares() {
