@@ -1,7 +1,5 @@
 package BaekJoon3;
 
-import SDS.KthShortestPath_1854;
-
 import java.io.*;
 import java.util.*;
 
@@ -67,15 +65,14 @@ public class ChickenDelivery_15686 {
             return;
         }
 
-        for (int i = 0; i < shops.size(); i++) {
+        for (int i = index; i < shops.size(); i++) {
             shops.get(i).survived = true;
             shopCombination.add(shops.get(i));
             checkDistance(index + 1, count + 1);
             shops.get(i).survived = false;
-            shopCombination.clear();
+            shopCombination.remove(shops.get(i));
         }
     }
-
 
     static class Pos{
         int x;
