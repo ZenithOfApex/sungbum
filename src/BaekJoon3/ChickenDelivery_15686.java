@@ -7,8 +7,7 @@ public class ChickenDelivery_15686 {
 
     static int N, M;
     static int[][] map;
-
-    static ArrayList<Integer> chickenDistances = new ArrayList<>();
+    static int minimumChickenDistance;
     static ArrayList<Pos> shopCombination = new ArrayList<>();
     static ArrayList<Pos> houses = new ArrayList<>();
     static ArrayList<Pos> shops = new ArrayList<>();
@@ -35,12 +34,10 @@ public class ChickenDelivery_15686 {
                 }
             }
         }
-
+        minimumChickenDistance = Integer.MAX_VALUE;
         checkDistance(0,0);
-        Collections.sort(chickenDistances);
-        System.out.println(chickenDistances);
 
-        bw.write(chickenDistances.get(0) + "\n");
+        bw.write(minimumChickenDistance + "\n");
 
         bw.flush();
         bw.close();
@@ -62,10 +59,10 @@ public class ChickenDelivery_15686 {
                 }
                 distance+=temp;
             }
-            chickenDistances.add(distance);
+            minimumChickenDistance = Math.min(minimumChickenDistance, distance);
             return;
         }
-        //여기서 시간초과 나는듯....
+        //여기서 시간초과 나는듯....arrayList -> array로 전환해서 도전해보자
         for (int i = index; i < shops.size(); i++) {
             shops.get(i).survived = true;
             shopCombination.add(shops.get(i));
