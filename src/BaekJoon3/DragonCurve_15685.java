@@ -39,12 +39,6 @@ public class DragonCurve_15685 {
         //map에서 전체 사각형 갯수 세기
         countingSquares();
 
-        for (int[] ints : map) {
-            for (int anInt : ints) {
-                System.out.print(anInt + " ");
-            }
-            System.out.println();
-        }
 
         bw.write(answer + "\n");
 
