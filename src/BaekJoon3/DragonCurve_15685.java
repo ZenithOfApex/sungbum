@@ -7,7 +7,6 @@ public class DragonCurve_15685 {
 
     static int N, answer;
     static ArrayList<Dragon> dragon;
-    static int nx, ny;
     static int[][] map = new int[101][101];//0이면 false 1이면 true
 
     public static void main(String[] args) throws IOException {
@@ -133,14 +132,12 @@ public class DragonCurve_15685 {
                 map[x][++y] = 1;
             }
         }
-
-        map[nx][ny] = 1;
     }
 
     private static void countingSquares() {
-        for (int i = 0; i < 101; i++) {
-            for (int j = 0; j < 101; j++) {
-                if (map[i][j]==1 && map[i + 1][j]==1 && map[i][j + 1]==1 && map[i + 1][j + 1]==1) {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                if (map[i][j] == 1 && map[i + 1][j] == 1 && map[i][j + 1] == 1 && map[i + 1][j + 1] == 1) {
                     answer++;
                 }
             }
