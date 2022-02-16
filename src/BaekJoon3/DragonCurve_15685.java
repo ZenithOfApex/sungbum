@@ -59,65 +59,6 @@ public class DragonCurve_15685 {
         return directions;
     }
 
-//    private static void solution(int x, int y, Deque<Integer> directionQueue, int curGeneration, int targetGeneration) {
-//        if (curGeneration == targetGeneration) {
-//            return;
-//        }
-//
-//        Deque<Integer> tempDeque = new LinkedList<>(directionQueue);
-//        while (!directionQueue.isEmpty()) {
-//            int polledDirection = directionQueue.pollFirst();
-//            draw(x, y, polledDirection);
-//            tempDeque.offerLast((polledDirection + 1) % 4);
-//        }
-//
-//
-//        //다음 generation 그리기
-//        solution(nx, ny, tempDeque, curGeneration + 1,targetGeneration);
-//        tempDeque = null;
-//    }
-
-//    private static void solution(int x, int y, int d, int g) {
-//        int curGeneration = 0;
-//
-//        workQueue.offer(d);
-//
-//        nx = x;
-//        ny = y;
-//
-//        while (curGeneration <= g) {
-////            draw(x, y, d);
-//            //현 작업리스트에 대하여 체크 실행
-//            Deque<Integer> tempDeque = new LinkedList<>(workQueue);
-//            while (!workQueue.isEmpty()) {
-//                int polledDirection = workQueue.pollFirst();
-//                nx = nx + dx[polledDirection];
-//                ny = ny + dy[polledDirection];
-//                draw(nx, ny, polledDirection);
-//            }
-////            System.out.println("checked");
-//            //다음세대를 위한 작업 리스트 갱신
-//            ArrayList<Integer> prevWork = new ArrayList<>();
-//            ArrayList<Integer> curWork = new ArrayList<>();
-//            while (!tempDeque.isEmpty()) {
-//                int polledDirection = tempDeque.pollLast();
-//
-//                int newDirection = (polledDirection + 1) % 4;
-//                prevWork.add(polledDirection);
-//                curWork.add(newDirection);
-//            }
-//            for (Integer integer : prevWork) {
-//                tempDeque.offerFirst(integer);
-//            }
-//            for (Integer integer : curWork) {
-//                tempDeque.offerLast(integer);
-//            }
-////            System.out.println("done");
-//
-//            curGeneration++;
-//        }
-//    }
-
     private static void draw(int x, int y, List<Integer> directions) {
         map[x][y] = 1;
 
