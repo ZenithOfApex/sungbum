@@ -33,7 +33,7 @@ public class Gear_14891 {
 
         for (int[] ints : gear) {
             for (int anInt : ints) {
-                System.out.print(anInt+" ");
+                System.out.print(anInt);
             }
             System.out.println();
         }
@@ -155,7 +155,7 @@ public class Gear_14891 {
 
     private static void rotateClockWise(int gearNum) {
         int temp = changedTempGear[gearNum][7];
-        for (int i = 1; i < 8; i++) {
+        for (int i = 7; i > 0; i--) {
             changedTempGear[gearNum][i] = changedTempGear[gearNum][i-1];
         }
         changedTempGear[gearNum][0] = temp;
