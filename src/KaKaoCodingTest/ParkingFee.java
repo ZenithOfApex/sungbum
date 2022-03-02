@@ -3,7 +3,7 @@ package KaKaoCodingTest;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Q03_final {
+public class ParkingFee {
     public static void main(String[] args) throws Exception {
         int[] fees = {1, 461, 1, 10};
         String[] records = {"00:00 1234 IN"};
@@ -118,28 +118,29 @@ public class Q03_final {
         }
         return charge;
     }
-}
-class parkingFee{
-    int freeTime;
-    int freePay;
-    int addTime;
-    int addFee;
+    private static class parkingFee{
+        int freeTime;
+        int freePay;
+        int addTime;
+        int addFee;
 
-    public parkingFee(int freeTime, int freePay, int addTime, int addFee) {
-        this.freeTime = freeTime;
-        this.freePay = freePay;
-        this.addTime = addTime;
-        this.addFee = addFee;
+        public parkingFee(int freeTime, int freePay, int addTime, int addFee) {
+            this.freeTime = freeTime;
+            this.freePay = freePay;
+            this.addTime = addTime;
+            this.addFee = addFee;
+        }
     }
-}
-class carInfo{
-    int carNum;
-    String time;
-    String status;
 
-    public carInfo(int carNum, String time, String status) {
-        this.carNum = carNum;
-        this.time = time;
-        this.status = status;
+    private static class carInfo{
+        int carNum;
+        String time;
+        String status;
+
+        public carInfo(int carNum, String time, String status) {
+            this.carNum = carNum;
+            this.time = time;
+            this.status = status;
+        }
     }
 }
