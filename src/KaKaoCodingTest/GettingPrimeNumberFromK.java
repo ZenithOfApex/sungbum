@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class GettingPrimeNumberFromK {
+    static int answer = 0;
+    static ArrayList<Long> result;
+
     public static void main(String[] args) {
 //        int n=110011;
 //        int k=10;
@@ -14,41 +17,40 @@ public class GettingPrimeNumberFromK {
     }
 
     public static int solution(int n, int k) {
-        int answer =-1;
-        String str = conversion(n, k);
-//        Long strNum = Long.parseLong(str);
-        ArrayList<String> result2 = new ArrayList<>();
-        StringTokenizer st = new StringTokenizer(str, "0");
-        while (st.hasMoreTokens()) {
-            String target = st.nextToken();
-            int targetNum = Integer.parseInt(target);
-            if (targetNum >= 2) {
-                result2.add(target);
+        String conversedStr = conversion(n, k);
+
+        String[] nums = conversedStr.split("0");
+
+        for (String num : nums) {
+            if (num.equals("")) continue;
+            if (isPrime(Long.valueOf(num))) {
+                answer++;
             }
         }
-        int count=0;
-        for(int i=0;i<result2.size();i++){
-            int checkNum = Integer.parseInt(result2.get(i));
-            if(checkNum==1) break;
-            if(checkNum==2){
-                count++;
-            }else{
-                boolean prime = false;
-                for(int j=2;j<checkNum;j++){
-                    if(checkNum%j==0){
-                        prime = true;
-                        System.out.println(checkNum);
-                        break;
-                    }
-                }
-                if(prime==false) count++;
-            }
-        }
-        answer = count;
+
         return answer;
+
+//        StringTokenizer st = new StringTokenizer(conversedStr, "0");
+//        while (st.hasMoreTokens()) {
+//            String target = st.nextToken();
+//            Long targetNum = Long.parseLong(target);
+//            if (targetNum>=2 && isPrime(targetNum)) {
+//                answer++;
+//            }
+//            if (targetNum >= 2) {
+//                result.add(targetNum);
+//            }
+        }
+
+    private static boolean isPrime(Long num) {
+        if(num==1) return false;
+        for (int i = 2; i<= (int)Math.sqrt(num); i++) {
+            if(num%i==0) return false;
+        }
+        return true;
     }
 
-    public static String conversion(int number, int n){
+    private static String conversion(int number, int n){
         StringBuilder sb = new StringBuilder();
         while (number >= 1) {
             sb.insert(0, number % n);
