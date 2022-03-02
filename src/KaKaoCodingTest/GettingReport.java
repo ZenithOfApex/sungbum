@@ -2,12 +2,17 @@ package KaKaoCodingTest;
 
 import java.util.ArrayList;
 
-public class Q01 {
+public class GettingReport {
+
+    static ArrayList<UserInfo> users;
+
     public static int[] solution(String[] id_list, String[] report, int k){
         int[] answer = new int[id_list.length];
-        ArrayList<UserInfo> users = new ArrayList<>();
+        users = new ArrayList<>();
+
         userEnrollment(id_list,users);
         reportCheck(report, users);
+
         for(int i=0;i<users.size();i++){//신고 다 확인해서 k횟수 초과시 false로 값 치환
             if (users.get(i).reportCount >= k) {
                 users.get(i).activeStatus = false;
@@ -15,6 +20,7 @@ public class Q01 {
         }
         //정지됐는지 확인하고 이메일을 보내야지
         checkingStatus(users);
+
         for(int i=0;i<answer.length;i++){
             answer[i] = users.get(i).emailReceived;
         }
@@ -69,17 +75,18 @@ public class Q01 {
             System.out.println("answer[i] = " + answer[i]);
         }
     }
-}
-class UserInfo{
-    String userId;
-    ArrayList<String> reportTarget = new ArrayList<>();
-    int reportCount;
-    boolean activeStatus;
-    int emailReceived;
 
-    public UserInfo(String userId, boolean activeStatus) {
-        this.userId = userId;
-        this.activeStatus = activeStatus;
+    private static class UserInfo{
+        String userId;
+        ArrayList<String> reportTarget = new ArrayList<>();
+        int reportCount;
+        boolean activeStatus;
+        int emailReceived;
+
+        public UserInfo(String userId, boolean activeStatus) {
+            this.userId = userId;
+            this.activeStatus = activeStatus;
+        }
     }
 }
 
