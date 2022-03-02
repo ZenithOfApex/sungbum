@@ -3,7 +3,7 @@ package KaKaoCodingTest;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Q02_final {
+public class GettingPrimeNumberFromK {
     public static void main(String[] args) {
 //        int n=110011;
 //        int k=10;
