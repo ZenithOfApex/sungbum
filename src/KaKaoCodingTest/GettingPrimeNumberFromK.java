@@ -19,6 +19,16 @@ public class GettingPrimeNumberFromK {
     public static int solution(int n, int k) {
         String conversedStr = conversion(n, k);
 
+        StringTokenizer st = new StringTokenizer(conversedStr, "0");
+
+        //test case#1 21.62
+//        while (st.hasMoreTokens()) {
+//            if (isPrime(Long.valueOf(st.nextToken()))) {
+//                answer++;
+//            }
+//        }
+
+        //test case#1 14.26
         String[] nums = conversedStr.split("0");
 
         for (String num : nums) {
