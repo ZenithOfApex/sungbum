@@ -45,36 +45,24 @@ public class ParkingFee {
                     timeToCalc.add(info.get(j).time);
                 }
             }
-//            System.out.println("checking");
-//            for (int l = 0; l < timeToCalc.size(); l++) {
-//                System.out.println("timeToCalc = " + timeToCalc.get(l));
-//                System.out.println("timeToCalc.size() = " + timeToCalc.size());
-//            }
+
             if (timeToCalc.size()% 2 == 0) {//in and out이 맞아떨어지면
-//                System.out.println("entered");
                 while (!timeToCalc.isEmpty()) {
-//                    System.out.println("even number timeToCalc while entered");
                     String time1 = timeToCalc.get(0);
                     String time2 = timeToCalc.get(1);
                     totalFee += timeToFee(time1, time2, pf);
-//                    System.out.println("totalFee = " + totalFee);
                     timeToCalc.remove(0);
                     timeToCalc.remove(1);
                 }
             }
             else if(timeToCalc.size() %2 != 0){//in and out이 맞아 떨어지지 않으면
                 timeToCalc.add("23:59");
-//                System.out.println("entered");
                 while (!timeToCalc.isEmpty()) {
-//                    System.out.println("odd number timeToCalc while entered");
                     String time1 = timeToCalc.get(0);
                     String time2 = timeToCalc.get(1);
                     totalFee += timeToFee(time1, time2, pf);
-//                    System.out.println("totalFee = " + totalFee);
-//                    System.out.println("timeToCalc = " + timeToCalc.get(0));
                     timeToCalc.remove(0);
                     timeToCalc.remove(0);
-//                    System.out.println("eng");
                 }
             }
             finalAnswer.add(totalFee);
@@ -118,6 +106,7 @@ public class ParkingFee {
         }
         return charge;
     }
+
     private static class parkingFee{
         int freeTime;
         int freePay;
