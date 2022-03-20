@@ -48,8 +48,11 @@ public class Migration_16234 {
             for (int i = 0; i < N; i++) {
                 for (int j = 0; j < N; j++) {
                     if (!visited[i][j]) {
-                        openBoundaryAndChange(i, j);
-                        moving = true;
+                        int sum = openBoundary(i, j);
+                        if (connected.size() > 1) {
+                            changePopulation(sum);
+                            moving = true;
+                        }
                     }
                 }
             }
@@ -60,7 +63,7 @@ public class Migration_16234 {
 
     //map을 하나하나 읽어서 주변에 붙어있는 나라 중 diff 범위 내라면 국경 오픈
     //bfs를 통해 하나의 기준으로 연결되어 있는 나라를 구해서 그 평균으로 값 변경
-    private static void openBoundaryAndChange(int x, int y) {
+    private static int openBoundary(int x, int y) {
         Queue<Pos> q = new LinkedList<>();
         connected = new ArrayList<>();
 
@@ -73,8 +76,8 @@ public class Migration_16234 {
             Pos curPos = q.poll();
 
             for (int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
+                int nx = curPos.x + dx[i];
+                int ny = curPos.y + dy[i];
                 if (inRange(nx, ny) && !visited[nx][ny]) {
                     int diff = Math.abs(map[curPos.x][curPos.y] - map[nx][ny]);
                     if (diff >= L && diff <= R) {
@@ -86,12 +89,14 @@ public class Migration_16234 {
                 }
             }
         }
+        return sum;
+    }
 
-        if (connected.size() > 1) {
-            int avg = sum / connected.size();
-            for (Pos p : connected) {
-                map[p.x][p.y] = avg;
-            }
+    //엥 왜 안되지
+    private static void changePopulation(int sum) {
+        int avg = sum / connected.size();
+        for (Pos pos : connected) {
+            map[pos.x][pos.y] = avg;
         }
     }
 
