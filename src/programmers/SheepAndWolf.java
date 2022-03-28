@@ -39,7 +39,7 @@ public class SheepAndWolf {
         if (info[index] == 0) {
             s += 1;
         }//늑대이면 w+=1
-        w+=1;
+        else w+=1;
 
         if(s<=w) return;
 
