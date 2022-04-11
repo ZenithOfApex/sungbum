@@ -52,6 +52,7 @@ public class Snake_3190 {
         int head_x = 1;
         int head_y = 1;
         int curTime = 1;
+
         int targetTime = timeQueue.peek().time;
         String targetDir = timeQueue.poll().dir;
         while(true){
@@ -73,8 +74,13 @@ public class Snake_3190 {
         //세가지 분기에 따라 이동 진행
     }
 
+    private static boolean hasApple(int x, int y){
+        if (map[x][y] == 1) {
+            return true;
+        }else return false;
+    }
 
-    private static void move(){
+    private static void move(int x, int y, int dir){
         //이동 진행
         //머리가 먼저 다음칸으로 이동
         //머리가 이동한 칸에 사과가 있으면 꼬리는 움직이지 않음
