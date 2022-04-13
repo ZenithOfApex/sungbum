@@ -1,6 +1,7 @@
 package BaekJoon4;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -9,7 +10,12 @@ public class Snake_3190 {
     static int N, K, L;
     static int answer = 0;
     static int[][] map;
-    static Queue<TimeStamp> timeQueue =new LinkedList<>();
+    static int d = 0;
+    static int[] dx = {1, 0, -1, 0};//우 상 하 좌
+    static int[] dy = {0, 1, 0, -1};
+
+    static HashMap<Integer, String> moveHash = new HashMap<>();
+    static Queue<Integer> snake =new LinkedList<>();
 
 
     public static void main(String[] args) throws IOException {
@@ -20,13 +26,13 @@ public class Snake_3190 {
         N = Integer.parseInt(br.readLine());
         K = Integer.parseInt(br.readLine());
 
-        map = new int[N + 1][N + 1];
+        map = new int[N][N];
 
         for (int i = 0; i < K; i++) {
             st = new StringTokenizer(br.readLine(), " ");
             int row = Integer.parseInt(st.nextToken());
             int col = Integer.parseInt(st.nextToken());
-            map[row][col] = 1;//사과의 위치를 1로 표시
+            map[row-1][col-1] = 1;//사과의 위치를 1로 표시
         }
 
         L = Integer.parseInt(br.readLine());
@@ -36,7 +42,7 @@ public class Snake_3190 {
             int time = Integer.parseInt(st.nextToken());
             String dir = st.nextToken();
 
-            timeQueue.add(new TimeStamp(time, dir));
+            moveHash.put(time, dir);
         }
 
         solution();
@@ -47,37 +53,48 @@ public class Snake_3190 {
         br.close();
     }
 
-    private static int solution(){
-        //1,1에서부터 뱀이 움지기이기 시작
-        int head_x = 1;
-        int head_y = 1;
-        int curTime = 1;
+    private static void solution(){
+        //1,1에서부터 뱀이 움지기이기 시작: (0,0)으로 저장
+        snake.add(0);
+        int curTime = 0;
+        int x = 0;
+        int y = 0;
 
-        int targetTime = timeQueue.peek().time;
-        String targetDir = timeQueue.poll().dir;
-        while(true){
-            if (curTime == targetTime) {
-                //방향 전환
-
-                //targetTime, targetDir 갱신
-                targetTime = timeQueue.peek().time;
-                targetDir = timeQueue.poll().dir;
-            }
-            move();
-
-            if (!inRange(head_x, head_y) || map[head_x][head_y] == 2) {
-                 break;
-            }
+        while (true) {
             curTime++;
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+
+            if (!inRange(nx, ny) || snake.contains(ny * N + nx)) {
+                break;
+            }
+
+            if (map[ny][nx] == 1) {
+                map[ny][nx] = 0;
+                snake.add(ny * N + nx);
+            } else {
+                snake.add(ny * N + nx);
+                snake.poll();
+            }
+
+            if (moveHash.containsKey(curTime)) {
+                String nextDir = moveHash.get(curTime);
+                if (nextDir.equals("D")) {
+                    d = (++d) % 4;
+                } else {
+                    d -=1;
+                    if (d == -1) {
+                        d = 3;
+                    }
+                }
+            }
+
+            x = nx;
+            y = ny;
         }
+        answer = curTime;
         //초기 이동은 오른쪽으로 이동
         //세가지 분기에 따라 이동 진행
-    }
-
-    private static boolean hasApple(int x, int y){
-        if (map[x][y] == 1) {
-            return true;
-        }else return false;
     }
 
     private static void move(int x, int y, int dir){
@@ -85,21 +102,10 @@ public class Snake_3190 {
         //머리가 먼저 다음칸으로 이동
         //머리가 이동한 칸에 사과가 있으면 꼬리는 움직이지 않음
         //머리가 이동한 칸에 사과가 없으면 꼬리는 머리칸으로 이동
-
         //벽 또는 자기 자신에 부딪히면 종료
     }
 
     private static boolean inRange(int x, int y) {
-        return x >= 1 && x < N + 1 && y >= 1 && y < N + 1;
-    }
-
-    static class TimeStamp {
-        int time;
-        String dir;
-
-        public TimeStamp(int time, String dir) {
-            this.time = time;
-            this.dir = dir;
-        }
+        return x >= 0 && x < N && y >= 0 && y < N;
     }
 }
