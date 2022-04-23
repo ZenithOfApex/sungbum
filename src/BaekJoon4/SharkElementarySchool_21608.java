@@ -43,15 +43,6 @@ public class SharkElementarySchool_21608 {
         br.close();
     }
 
-    private static void print() {
-        for (int[] ints : map) {
-            for (int anInt : ints) {
-                System.out.print(anInt);
-            }
-            System.out.println();
-        }
-    }
-
     private static void solution() {
         /**
          * 1번부터 N*N 학생까지 Input 순서대로 진행될건데
