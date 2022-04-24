@@ -111,8 +111,18 @@ public class SharkMiddleSchool_21609 {
     }
 
     //2차원 배열 반시계로 90도 회전
-    private static void rotateClockwise(){
+    private static int[][] rotateClockwise(int arr[][]){
+        int n = arr.length;
+        int m = arr[0].length;
+        int[][] rotate = new int[m][n];
 
+        for(int i=0;i<rotate.length;i++){
+            for (int j = 0; j < rotate[i].length; j++) {
+                rotate[i][j] = arr[n - 1 - j][i];
+            }
+        }
+
+        return rotate;
     }
 
     //이게 어려울듯
