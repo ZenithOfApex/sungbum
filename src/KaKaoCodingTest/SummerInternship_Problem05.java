@@ -8,11 +8,11 @@ public class SummerInternship_Problem05 {
 
     public static void main(String[] args) {
 //        int[][] rc = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-//        int[][] rc = {{8, 6, 3}, {3, 3, 7}, {8, 4, 9}};
-        int[][] rc = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}};
+        int[][] rc = {{8, 6, 3}, {3, 3, 7}, {8, 4, 9}};
+//        int[][] rc = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}};
 //        String[] operations = {"Rotate", "ShiftRow"};
-//        String[] operations = {"Rotate", "ShiftRow", "ShiftRow"};
-        String[] operations = {"ShiftRow", "Rotate", "ShiftRow","Rotate"};
+        String[] operations = {"Rotate", "ShiftRow", "ShiftRow"};
+//        String[] operations = {"ShiftRow", "Rotate", "ShiftRow","Rotate"};
         answer = new int[rc.length][rc[0].length];
         answer = solution(rc, operations);
 
@@ -33,28 +33,14 @@ public class SummerInternship_Problem05 {
 
         for (String operation : operations) {
             if (operation.equals("Rotate")) {
-//                int[][] tmp = fixMap(rc);
-//                rc = tmp.clone();
                 rc = fixMap(rc);
                 rc = rotate(rc);
             } else if (operation.equals("ShiftRow")) {
                 shift(rc);
             }
 
-            System.out.println("Operation ended");
-            for (int[] ints : rc) {
-                for (int anInt : ints) {
-                    System.out.print(anInt+" ");
-                }
-                System.out.println();
-            }
-            System.out.println("startIndex = " + startIndex);
-            System.out.println("endIndex = " + endIndex);
-            System.out.println();
-
         }
-//        int[][] tmp = fixMap(rc);
-//        rc = tmp.clone();
+        rc = fixMap(rc);
         return rc;
     }
 
@@ -62,11 +48,10 @@ public class SummerInternship_Problem05 {
         int[][] rtnMap = new int[rowLength][colLength];
 
         for (int i = 0; i < rowLength; i++) {
-            for (int j = 0; j < colLength; j++) {
-                rtnMap[i][j] = rc[(startIndex+i)%rowLength][j];
-            }
+            System.arraycopy(rc[(startIndex+i)%rowLength],0,rtnMap[i],0,colLength);
         }
-
+        startIndex = 0;
+        endIndex = rc.length-1;
         return rtnMap;
     }
 
@@ -91,15 +76,6 @@ public class SummerInternship_Problem05 {
             }
         }
         map[0][0] = swap;
-
-        System.out.println("rotation test");
-        for (int[] ints : rtnMap) {
-            for (int anInt : ints) {
-                System.out.print(anInt+" ");
-            }
-            System.out.println();
-        }
-        System.out.println();
 
         return rtnMap;
     }
