@@ -9,25 +9,44 @@ public class SummerInternship22_Problem01 {
     static HashSet<String> names = new HashSet<>();
 
     public static void main(String[] args) {
-        String[] logs = {"morgan string_compare", "felix string_compare", "morgan reverse", "rohan sort", "andy reverse", "morgan sqrt"};
-//        String[] logs = {"morgan sort", "felix sort", "morgan sqrt", "morgan sqrt", "rohan reverse", "rohan reverse"};
+//        String[] logs = {"morgan string_compare", "felix string_compare", "morgan reverse", "rohan sort", "andy reverse", "morgan sqrt"};
+        String[] logs = {"morgan sort", "felix sort", "morgan sqrt", "morgan sqrt", "rohan reverse", "rohan reverse"};
         answer = solution(logs);
+        for (String s : answer) {
+            System.out.println("s = " + s);
+        }
     }
 
     private static String[] solution(String[] logs){
-        ArrayList<String> tempList = new ArrayList<>();
 
+        makeNameSet(logs);
+        initHistory();
+        makeHistory(logs);
+        makeWellKnownSet();
+        trimWellKnowSet();
+
+        ArrayList<String> list = trimWellKnowSet();
+        Collections.sort(list);
+
+        return list.toArray(new String[list.size()]);
+    }
+
+
+    private static void makeNameSet(String[] logs) {
         for (String log : logs) {
             StringTokenizer st = new StringTokenizer(log, " ");
             String name = st.nextToken();
             names.add(name);
         }
+    }
 
+    private static void initHistory() {
         for (String name : names) {
             history.put(name, new ArrayList<>());
         }
+    }
 
-
+    private static void makeHistory(String[] logs) {
         for (String log : logs) {
             StringTokenizer st = new StringTokenizer(log, " ");
             String name = st.nextToken();
@@ -39,7 +58,9 @@ public class SummerInternship22_Problem01 {
                 history.get(name).add(problem);
             }else continue;
         }
+    }
 
+    private static void makeWellKnownSet() {
         for (String s : history.keySet()) {
             for (String problem : history.get(s)) {
                 if (wellKnown.keySet().contains(problem)) {
@@ -51,7 +72,12 @@ public class SummerInternship22_Problem01 {
                 }
             }
         }
-        int half ;
+    }
+
+    private static ArrayList<String> trimWellKnowSet() {
+        ArrayList<String> tempList = new ArrayList<>();
+
+        int half;
         if (names.size() % 2 == 0) {
             half = names.size() / 2;
         } else half = names.size() / 2 + 1;
@@ -62,10 +88,6 @@ public class SummerInternship22_Problem01 {
             }else continue;
         }
 
-        Collections.sort(tempList);
-
-        answer = tempList.toArray(new String[tempList.size()]);
-
-        return answer;
+        return tempList;
     }
 }
